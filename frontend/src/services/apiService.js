@@ -1,0 +1,12 @@
+const API_BASE = "http://192.168.29.20:5000/api/auth";
+
+export const authRequest = async (endpoint, body) => {
+    const res = await fetch(`${API_BASE}${endpoint}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || "Failed");
+    return data;
+};

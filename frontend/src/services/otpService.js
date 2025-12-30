@@ -1,0 +1,20 @@
+const OTP_BASE = "http://192.168.29.20:5001";
+
+export const requestOTP = async (email) => {
+    const res = await fetch(`${OTP_BASE}/send-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+    });
+    return await res.json();
+};
+
+export const verifyOTPCode = async (email, otp) => {
+    const res = await fetch(`${OTP_BASE}/verify-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, otp }),
+    });
+    if (!res.ok) throw new Error("Invalid OTP");
+    return await res.json();
+};
